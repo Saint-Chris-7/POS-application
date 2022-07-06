@@ -1,0 +1,78 @@
+<FlatButton@ButtonBehavior+Label>:#no background cause of label. This is a button that has the x on the top it is a special button.
+    font_size: 16
+
+<SigningWindow>:
+    id: main_win
+    orientation: "vertical" #this is the orientation top to bottom or horizontal default is horizontal
+    spacing: 10 #this is the spacing of children, texinput etc
+    space_x: self.size[0]/3 #defualt is the window size
+    #before all widget/children#change the background color, draw a rectangle for all the children element using canvas
+    canvas.before:
+        Color:
+            rgba: (1,1,1, 1)
+        Rectangle:
+            size: self.size #same size as the window
+            pos: self.pos#same position as the Rectangle widget
+    BoxLayout:
+        size_hint_y: None #tells kivy not to give it the defult value
+        height: 50
+        canvas.before:
+            Color:
+                rgba: (.06,.45, .45, 1)
+            Rectangle:
+                size: self.size #same size as the window
+                pos: self.pos#same position as the Rectangle widget
+        Label:
+            text: "Access Control"
+            bold: True
+            size_hint_x: .9 #this is the size of the widget is going to take on the screen it is the ration/% of the parent layout default is 1,1 or 100%
+        FlatButton:
+            text: "X" #repalce it with an icon
+            size_hint_x: .1
+
+    BoxLayout:
+        orientation : "vertical"
+        padding: main_win.space_x, 10#distane between widget x and y
+        spacing: 20
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 10
+            size_hint_y: None
+            height: 100
+
+            Label:
+                id:info
+                text: ""
+                markup: True
+                size_hint_y: None
+                height: 20
+
+            TextInput:
+                id: username_field
+                hint_text: "username"
+                multiline: False
+                focus: True
+                on_text_validate: pwd_field.focus = True
+            TextInput:
+                id: pwd_field
+                hint_text: "password"
+                multiline: False
+                password: True #hide password
+                on_text_validate: root.validate_user()#we will create this function
+        Label:
+            id: sp
+            size_hint_y: None
+            height: 40
+        Button:
+            text: "Sign in"
+            size_hint_y: None
+            height: 40
+            background_color: (.06,.45,.45,1)
+            background_normal: ""#by defualt the button is shaded to remove the shade you put this property 
+            on_release: root.validate_user()
+        Label:
+            id: sp2
+# 1. ======> The reason why we have id: sp and sp2 is because ot  the layout without them it is a bug in the kivy version"""
+
+            
+
